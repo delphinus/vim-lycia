@@ -1,4 +1,3 @@
-source t/helpers/setup.vim
 call vspec#hint({'sid': 'open_github_link#_sid()'})
 
 describe 'private functions'
