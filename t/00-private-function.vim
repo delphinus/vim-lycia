@@ -10,5 +10,13 @@ describe 'private functions'
         Expect Call('s:path_from_args', []) ==# expand('%')
       end
     end
+
+    context 'when some path is given'
+
+      it 'returns a valid path'
+        let path = system('mktemp')
+        Expect Call('s:path_from_args', [path]) ==# path
+      end
+    end
   end
 end
