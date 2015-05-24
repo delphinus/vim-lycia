@@ -3,7 +3,7 @@ function! open_github_link#open(args, firstlnum, lastlnum)
 endfunction
 
 function! open_github_link#open_current_branch(args, firstlnum, lastlnum)
-  return open_github_link#invoke_command(s:path_from_args(args), s:current_branch(), 0, 0)
+  return open_github_link#invoke_command(s:path_from_args(a:args), s:current_branch(), a:firstlnum, a:lastlnum)
 endfunction
 
 function! open_github_link#open_top()
