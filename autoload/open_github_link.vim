@@ -28,7 +28,7 @@ function! s:resolve(path)
 endfunction
 
 function! s:current_branch()
-  let result = substitute(system('git rev-parse --abbrev-ref @'), '\n$', '', '')
+  let result = substitute(system(g:open_github_link_git . ' rev-parse --abbrev-ref @'), '\n$', '', '')
   return result
 endfunction
 

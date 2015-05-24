@@ -19,4 +19,15 @@ describe 'private functions'
       end
     end
   end
+
+  describe 's:current_branch()'
+
+    context 'when called'
+
+      it 'invokes true git command'
+        let g:open_github_link_git = 'echo'
+        Expect Call('s:current_branch') ==# 'rev-parse --abbrev-ref @'
+      end
+    end
+  end
 end

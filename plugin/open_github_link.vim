@@ -20,13 +20,17 @@ if !exists('g:open_github_link_map')
   let g:open_github_link_map = 1
 endif
 
+if !exists('g:open_github_link_git')
+  let g:open_github_link_git = 'git'
+endif
+
 function! s:error(msg)
   echohl ErrorMsg
   echomsg a:msg
   echohl None
 endfunction
 
-if !executable('git')
+if !executable(g:open_github_link_git)
   call s:error('Please install git in you PATH.')
   finish
 endif
