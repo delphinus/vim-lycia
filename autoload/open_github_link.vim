@@ -24,7 +24,7 @@ function! s:path_from_args(args)
 endfunction
 
 function! s:resolve(path)
-  return expand('*resolve') ? resolve(path) : path
+  return expand('*resolve') ? resolve(a:path) : a:path
 endfunction
 
 function! s:current_branch()

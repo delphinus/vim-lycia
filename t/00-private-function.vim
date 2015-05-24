@@ -8,7 +8,7 @@ describe 'private functions'
     context 'when no args are given'
 
       it 'returns current filename'
-        Expect Call('s:path_from_args', []) ==# expect('%')
+        Expect Call('s:path_from_args', []) ==# expand('%')
       end
     end
   end
