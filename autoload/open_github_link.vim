@@ -11,10 +11,10 @@ function! open_github_link#open_top()
 endfunction
 
 function! open_github_link#invoke_command(path, branch, from, to)
-  let path_opt   = len(path) > 0 ? expand(path) : expand('%:p')
-  let branch_opt = len(branch) > 0 ? '-b ' . branch : ''
-  let from_opt   = from > 0 ? '-f ' . from : ''
-  let to_opt     = to > 0 ? '-t ' . to : ''
+  let path_opt   = len(a:path) > 0 ? expand(a:path) : expand('%:p')
+  let branch_opt = len(a:branch) > 0 ? '-b ' . a:branch : ''
+  let from_opt   = a:from > 0 ? '-f ' . a:from : ''
+  let to_opt     = a:to > 0 ? '-t ' . a:to : ''
   let result = system(join([g:open_github_link_command, branch_opt, from_opt, to_opt, path_opt], ' ')))
   echomsg result
 endfunction
