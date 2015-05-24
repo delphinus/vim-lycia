@@ -4,7 +4,7 @@ describe 'private functions'
 
   describe 's:path_from_args()'
 
-    context 'when no args are given'
+    context 'when no args is given'
 
       it 'returns current filename'
         Expect Call('s:path_from_args', []) ==# expand('%')
