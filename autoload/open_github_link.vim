@@ -15,7 +15,7 @@ function! open_github_link#invoke_command(path, branch, from, to)
   let branch_opt = len(a:branch) > 0 ? '-b ' . a:branch : ''
   let from_opt   = a:from > 0 ? '-f ' . a:from : ''
   let to_opt     = a:to > 0 ? '-t ' . a:to : ''
-  let result = system(join([g:open_github_link_command, branch_opt, from_opt, to_opt, path_opt], ' ')))
+  let result = system(join([g:open_github_link_command, branch_opt, from_opt, to_opt, path_opt], ' '))
   echomsg result
 endfunction
 
