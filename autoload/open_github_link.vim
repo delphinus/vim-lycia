@@ -31,3 +31,10 @@ function! s:current_branch()
   let result = substitute(system('git rev-parse --abbrev-ref @'), '\n$', '', '')
   return result
 endfunction
+
+" For testing {{{
+function! open_github_link#_sid()
+  return maparg('<SID>', 'n')
+endfunction
+nnoremap <SID> <SID>
+" }}}
