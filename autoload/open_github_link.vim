@@ -1,13 +1,13 @@
 function! open_github_link#open(args, firstlnum, lastlnum)
-  call open_github_link#invoke_command(s:path_from_args(args), '', firstlnum, lastlnum)
+  return open_github_link#invoke_command(s:path_from_args(args), '', firstlnum, lastlnum)
 endfunction
 
 function! open_github_link#open_current_branch(args, firstlnum, lastlnum)
-  call open_github_link#invoke_command(s:path_from_args(args), s:current_branch(), 0, 0)
+  return open_github_link#invoke_command(s:path_from_args(args), s:current_branch(), 0, 0)
 endfunction
 
 function! open_github_link#open_top()
-  call open_github_link#invoke_command('', '', 0, 0))
+  return open_github_link#invoke_command('', '', 0, 0))
 endfunction
 
 function! open_github_link#invoke_command(path, branch, from, to)
