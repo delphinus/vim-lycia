@@ -7,7 +7,7 @@ function! open_github_link#open_current_branch(args, firstlnum, lastlnum)
 endfunction
 
 function! open_github_link#open_top()
-  return open_github_link#invoke_command('', '', 0, 0))
+  return open_github_link#invoke_command('', '', 0, 0)
 endfunction
 
 function! open_github_link#invoke_command(path, branch, from, to)
