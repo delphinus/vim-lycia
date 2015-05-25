@@ -49,6 +49,9 @@ nnoremap <silent> <Plug>(open-github-link-top-page)
 command! -range=0 -bar -nargs=* -complete=file
       \ OpenGithubLink
       \ call open_github_link#open([<f-args>], <line1>, <line2>)
+command! -range=0 -bar -nargs=* -complete=file
+      \ OpenGithubLinkTest
+      \ call open_github_link#open_test([<f-args>], <count>, <line1>, <line2>)
 command! OpenGithubLinkTop call open_github_link#open_top()
 
 " Restore 'cpoptions' {{{

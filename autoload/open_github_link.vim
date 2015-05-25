@@ -1,3 +1,7 @@
+function! open_github_link#open_test(args, rangegiven, firstlnum, lastlnum)
+  PP [a:args, a:rangegiven, a:firstlnum, a:lastlnum]
+endfunction
+
 function! open_github_link#open(args, firstlnum, lastlnum)
   return open_github_link#invoke_command(s:path_from_args(a:args), '', a:firstlnum, a:lastlnum)
 endfunction
