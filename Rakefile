@@ -12,5 +12,5 @@ task :flavor do
 end
 
 task :spec do
-  sh 'bundle exec rspec'
+  sh 'bundle exec rspec --format documentation'
 end
