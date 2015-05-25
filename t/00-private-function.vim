@@ -2,18 +2,18 @@ source t/helpers/setup.vim
 
 describe 'private functions'
 
-  describe 's:path_from_args()'
+  describe 's:path_from_arg()'
 
-    context 'when no args is given'
+    context 'when no arg is given'
       it 'returns current filename'
-        Expect Call('s:path_from_args', []) ==# expand('%')
+        Expect Call('s:path_from_arg', '') ==# expand('%')
       end
     end
 
     context 'when some path is given'
       it 'returns a valid path'
         let path = system('mktemp')
-        Expect Call('s:path_from_args', [path]) ==# path
+        Expect Call('s:path_from_arg', path) ==# path
       end
     end
   end
