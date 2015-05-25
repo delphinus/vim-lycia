@@ -1,6 +1,6 @@
 #!/usr/bin/env rake
 task :default => :ci
-task :test => %i[flavor rspec]
+task :test => %i[flavor spec]
 task :ci => %i[dump test]
 
 task :dump do
@@ -11,6 +11,6 @@ task :flavor do
   sh 'bundle exec vim-flavor test'
 end
 
-task :rspec do
+task :spec do
   sh 'bundle exec rspec'
 end
