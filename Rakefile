@@ -12,5 +12,5 @@ task :flavor do
 end
 
 task :rspec do
-  sh 'rspec'
+  sh 'bundle exec rspec'
 end
