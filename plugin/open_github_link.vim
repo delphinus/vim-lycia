@@ -36,22 +36,19 @@ if !executable(g:open_github_link_git)
 endif
 
 nnoremap <silent> <Plug>(open-github-link-default-branch)
-      \ :<C-u>call opengithublink#open([''], <line1>, <line2>)
+      \ :<C-u>call opengithublink#open([''], 0, 0, 0)
 nnoremap <silent> <Plug>(open-github-link-current-branch)
-      \ :<C-u>call opengithublink#open_current_branch([''], <line1>, <line2>)
+      \ :<C-u>call opengithublink#open_current_branch([''], 0, 0, 0)
 vnoremap <silent> <Plug>(open-github-link-default-branch-with-line)
-      \ :<C-u>call opengithublink#open([''], <line1>, <line2>)
+      \ :<C-u>call opengithublink#open([''], <count>, <line1>, <line2>)
 vnoremap <silent> <Plug>(open-github-link-current-branch-with-line)
-      \ :<C-u>call opengithublink#open_current_branch([''], <line1>, <line2>)
+      \ :<C-u>call opengithublink#open_current_branch([''], <count>, <line1>, <line2>)
 nnoremap <silent> <Plug>(open-github-link-top-page)
       \ :<C-u>call opengithublink#open_top()<CR>
 
 command! -range=0 -bar -nargs=* -complete=file
       \ OpenGithubLink
-      \ call open_github_link#open([<f-args>], <line1>, <line2>)
-command! -range=0 -bar -nargs=* -complete=file
-      \ OpenGithubLinkTest
-      \ call open_github_link#open_test([<f-args>], <count>, <line1>, <line2>)
+      \ call open_github_link#open([<f-args>], <count>, <line1>, <line2>)
 command! OpenGithubLinkTop call open_github_link#open_top()
 
 " Restore 'cpoptions' {{{

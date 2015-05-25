@@ -1,13 +1,17 @@
-function! open_github_link#open_test(args, rangegiven, firstlnum, lastlnum)
-  PP [a:args, a:rangegiven, a:firstlnum, a:lastlnum]
+function! open_github_link#open(args, rangegiven, firstlnum, lastlnum)
+  if a:rangegiven
+    return open_github_link#invoke_command(s:path_from_args(a:args), '', a:firstlnum, a:lastlnum)
+  else
+    return open_github_link#invoke_command(s:path_from_args(a:args), '', 0, 0)
+  endif
 endfunction
 
-function! open_github_link#open(args, firstlnum, lastlnum)
-  return open_github_link#invoke_command(s:path_from_args(a:args), '', a:firstlnum, a:lastlnum)
-endfunction
-
-function! open_github_link#open_current_branch(args, firstlnum, lastlnum)
-  return open_github_link#invoke_command(s:path_from_args(a:args), s:current_branch(), a:firstlnum, a:lastlnum)
+function! open_github_link#open_current_branch(args, rangegiven, firstlnum, lastlnum)
+  if a:rangegiven
+    return open_github_link#invoke_command(s:path_from_args(a:args), s:current_branch(), a:firstlnum, a:lastlnum)
+  else
+    return open_github_link#invoke_command(s:path_from_args(a:args), s:current_branch(), 0, 0)
+  endif
 endfunction
 
 function! open_github_link#open_top()
