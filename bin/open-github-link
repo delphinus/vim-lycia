@@ -126,13 +126,13 @@ class OpenGithubLink
 
   def initialize
     target = OpenTarget.new ARGV[-1]
-    params = ARGV.getopts('', 'from:0', 'to:0', "branch:#{default_branch}", 'help')
+    params = ARGV.getopts('', 'root', 'from:0', 'to:0', "branch:#{default_branch}", 'help')
     help_and_exit if params['help']
     from   = params['from'].to_i
     to     = params['to'].to_i
     branch = params['branch']
     github_url = GithubUrl.new
-    if target.nil?
+    if target.nil? || params['root']
       github_url.open
     else
       (github_url + "blob/#{branch}" + target).line_hash(from, to).open
