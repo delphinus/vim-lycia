@@ -44,7 +44,10 @@ nnoremap <silent> <Plug>(open-github-link-top-page)       :<C-u>call open_github
 command! -range=0 -bar -nargs=* -complete=file
       \ OpenGithubLink
       \ call open_github_link#open(<f-args>, <count>)
-command! OpenGithubLinkTop call open_github_link#open_top()
+command! -range=0 -bar -nargs=* -complete=file
+      \ OpenGithubLinkCurrentBranch
+      \ call open_github_link#open(<f-args>, <count>, 1)
+command! OpenGithubLinkTop              call open_github_link#open_top()
 
 if g:open_github_link_map
   nmap go <Plug>(open-github-link)
