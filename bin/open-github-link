@@ -42,7 +42,7 @@ module FSSH
   end
 
   def copy(txt)
-    copy_cmd = if fssh?
+    copy_cmd = if FSSH::fssh?
                  ENV['LC_FSSH_COPY']
                elsif RUBY_PLATFORM =~ /darwin/
                  rtun = `which reattach-to-user-namespace`.chomp
@@ -54,7 +54,7 @@ module FSSH
     system "echo '#{txt}' | #{copy_cmd}"
   end
 
-  module_function :system, :copy
+  module_function *%i[fssh? system copy]
 end
 
 class GithubUrl
