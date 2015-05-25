@@ -35,11 +35,12 @@ if !executable(g:open_github_link_git)
   finish
 endif
 
-nnoremap <silent> <Plug>(open-github-link)                :<C-u>call open_github_link#open('')<CR>
-vnoremap <silent> <Plug>(open-github-link)                :<C-u>call open_github_link#open('', 1)<CR>
-nnoremap <silent> <Plug>(open-github-link-current-branch) :<C-u>call open_github_link#open('', 0, 1)<CR>
-vnoremap <silent> <Plug>(open-github-link-current-branch) :<C-u>call open_github_link#open('', 1, 1)<CR>
-nnoremap <silent> <Plug>(open-github-link-top-page)       :<C-u>call open_github_link#open_top()<CR>
+nnoremap <silent> <Plug>(open-github-link)                         :<C-u>call open_github_link#open('')<CR>
+vnoremap <silent> <Plug>(open-github-link)                         :<C-u>call open_github_link#open('', 1)<CR>
+nnoremap <silent> <Plug>(open-github-link-current-branch)          :<C-u>call open_github_link#open('', 0, 1)<CR>
+vnoremap <silent> <Plug>(open-github-link-current-branch)          :<C-u>call open_github_link#open('', 1, 1)<CR>
+nnoremap <silent> <Plug>(open-github-link-top-page)                :<C-u>call open_github_link#open_top()<CR>
+nnoremap <silent> <Plug>(open-github-link-top-page-current-branch) :<C-u>call open_github_link#open_top(1)<CR>
 
 command! -range=0 -bar -nargs=* -complete=file
       \ OpenGithubLink
@@ -56,7 +57,7 @@ if g:open_github_link_map
   nmap gb <Plug>(open-github-link-current-branch)
   vmap gb <Plug>(open-github-link-current-branch)
   nmap g<C-t> <Plug>(open-github-link-top-page)
-  nmap g<C-o> <Plug>(open-github-link-top-page)
+  nmap g<C-y> <Plug>(open-github-link-top-page-current-branch)
 endif
 
 " Restore 'cpoptions' {{{
