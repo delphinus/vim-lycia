@@ -18,14 +18,32 @@ describe '`open` commands'
   describe 'open_github_link#open()'
 
     context 'when range is not given'
-      it 'invokes a valid command'
-        Expect Call('open_github_link#open', '/path/to/file') ==# "/path/to/file\n"
+
+      context 'when is_current flag is off'
+        it 'invokes a valid command'
+          Expect Call('open_github_link#open', '/path/to/file') ==# "/path/to/file\n"
+        end
+      end
+
+      context 'when is_current is on'
+        it 'invokes a valid command'
+          Expect Call('open_github_link#open', '/path/to/file', 0, 1) ==# "-b some_branch /path/to/file\n"
+        end
       end
     end
 
     context 'when range is given'
-      it 'invokes a valid command'
-        Expect Call('open_github_link#open', '/path/to/file', 1) ==# "-f 3 -t 5 /path/to/file\n"
+
+      context 'when is_current flag is off'
+        it 'invokes a valid command'
+          Expect Call('open_github_link#open', '/path/to/file', 1) ==# "-f 3 -t 5 /path/to/file\n"
+        end
+      end
+
+      context 'when is_current flag is on'
+        it 'invokes a valid command'
+          Expect Call('open_github_link#open', '/path/to/file', 1, 1) ==# "-b some_branch -f 3 -t 5 /path/to/file\n"
+        end
       end
     end
   end
