@@ -103,12 +103,12 @@ class OpenTarget
     return if str.nil?
 
     @path = Pathname(str)
+    @path = @path.expand_path if @path.relative?
     if @path.directory?
       Dir.chdir @path
     else
       Dir.chdir @path.dirname
     end
-    @path = @path.expand_path if @path.relative?
     git_top_dir = Pathname(`git rev-parse --show-toplevel`.chomp)
     @path = if @path == git_top_dir
               nil
