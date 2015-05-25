@@ -182,4 +182,4 @@ class OpenGithubLink
   end
 end
 
-OpenGithubLink.new
+OpenGithubLink.new if $0 == __FILE__
