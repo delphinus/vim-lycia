@@ -47,9 +47,9 @@ module FSSH
                elsif RUBY_PLATFORM =~ /darwin/
                  rtun = `which reattach-to-user-namespace`.chomp
                  rtun = '' unless $?.success?
-                 system "#{rtun} pbcopy"
+                 "#{rtun} pbcopy"
                else
-                 system 'xclip -i'
+                 'xclip -i'
                end
     system "echo '#{txt}' | #{copy_cmd}"
   end
