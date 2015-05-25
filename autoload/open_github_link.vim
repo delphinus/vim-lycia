@@ -1,17 +1,11 @@
 function! open_github_link#open(path, ...)
   let rangegiven = get(a:, 1, 0)
+  let is_current = get(a:, 2, 0)
+  let branch = is_current ? s:current_branch() : ''
   if rangegiven
-    return open_github_link#invoke_command(s:path_from_arg(a:path), '', line("'<"), line("'>"))
+    return open_github_link#invoke_command(s:path_from_arg(a:path), branch, line("'<"), line("'>"))
   else
-    return open_github_link#invoke_command(s:path_from_arg(a:path), '', 0, 0)
-  endif
-endfunction
-
-function! open_github_link#open_current_branch(args, rangegiven, firstlnum, lastlnum)
-  if a:rangegiven
-    return open_github_link#invoke_command(s:path_from_args(a:args), s:current_branch(), a:firstlnum, a:lastlnum)
-  else
-    return open_github_link#invoke_command(s:path_from_args(a:args), s:current_branch(), 0, 0)
+    return open_github_link#invoke_command(s:path_from_arg(a:path), branch, 0, 0)
   endif
 endfunction
 
