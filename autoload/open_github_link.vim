@@ -19,7 +19,7 @@ function! open_github_link#open_top()
 endfunction
 
 function! open_github_link#invoke_command(path, branch, from, to)
-  let path_opt   = len(a:path) > 0 ? expand(a:path) : expand('%:p')
+  let path_opt   = len(a:path) > 0 ? expand(a:path) : '-r ' . expand('%:p')
   let branch_opt = len(a:branch) > 0 ? '-b ' . a:branch : ''
   let from_opt   = a:from > 0 ? '-f ' . a:from : ''
   let to_opt     = a:to > 0 ? '-t ' . a:to : ''

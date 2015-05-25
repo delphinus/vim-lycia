@@ -41,7 +41,7 @@ describe '`open` commands'
 
     context 'when valid args'
       it 'invokes a valid command'
-        Expect Call('open_github_link#open_top') ==# "\n"
+        Expect Call('open_github_link#open_top') ==# "-r\n"
       end
     end
   end

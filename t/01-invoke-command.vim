@@ -9,7 +9,7 @@ describe 'open_github_link#invoke_command()'
 
   context 'when no path, branch, from, to are given'
     it 'returns a valid command'
-      Expect Call(g:_test_func_name, '', '', 0, 0) ==# "\n"
+      Expect Call(g:_test_func_name, '', '', 0, 0) ==# "-r\n"
     end
   end
 
