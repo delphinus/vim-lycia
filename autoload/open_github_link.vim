@@ -1,8 +1,9 @@
-function! open_github_link#open(args, rangegiven, firstlnum, lastlnum)
-  if a:rangegiven
-    return open_github_link#invoke_command(s:path_from_args(a:args), '', a:firstlnum, a:lastlnum)
+function! open_github_link#open(path, ...)
+  let rangegiven = get(a:, 1, 0)
+  if rangegiven
+    return open_github_link#invoke_command(s:path_from_arg(a:path), '', line("'<"), line("'>"))
   else
-    return open_github_link#invoke_command(s:path_from_args(a:args), '', 0, 0)
+    return open_github_link#invoke_command(s:path_from_arg(a:path), '', 0, 0)
   endif
 endfunction
 
@@ -28,8 +29,8 @@ function! open_github_link#invoke_command(path, branch, from, to)
   return result
 endfunction
 
-function! s:path_from_args(args)
-  return s:resolve(expand(empty(a:args) ? '%' : a:args[0]))
+function! s:path_from_arg(path)
+  return s:resolve(expand(len(a:path) > 0 ? a:path : '%'))
 endfunction
 
 function! s:resolve(path)
