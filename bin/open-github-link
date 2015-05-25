@@ -124,15 +124,27 @@ end
 
 class OpenGithubLink
 
+  BRANCH_NOT_SPECIFIED = '(not specified)'
+
   def initialize
-    target = OpenTarget.new ARGV[-1]
-    params = ARGV.getopts('', 'root', 'from:0', 'to:0', "branch:#{default_branch}", 'help')
+    params = ARGV.getopts('', 'root', 'from:0', 'to:0', "branch:#{BRANCH_NOT_SPECIFIED}", 'help')
     help_and_exit if params['help']
     from   = params['from'].to_i
     to     = params['to'].to_i
-    branch = params['branch']
+    target = OpenTarget.new ARGV[0]
+    branch = if params['branch'] == BRANCH_NOT_SPECIFIED
+               default_branch
+             else
+               params['branch']
+             end
     github_url = GithubUrl.new
-    if target.nil? || params['root']
+    if params['root']
+      if params['branch'] == BRANCH_NOT_SPECIFIED
+        github_url.open
+      else
+        (github_url + "tree/#{branch}").open
+      end
+    elsif target.nil?
       github_url.open
     else
       (github_url + "blob/#{branch}" + target).line_hash(from, to).open
