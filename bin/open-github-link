@@ -23,10 +23,12 @@ end
 
 module FSSH
 
+  def fssh?
+    ! ENV['LC_FSSH_PORT'].nil?
+  end
+
   def system(cmd)
-    if ENV['LC_FSSH_PORT'].nil?
-      Kernel.system cmd
-    else
+    if fssh?
       Kernel.system <<-CMD.undent.split("\n").join
         ssh -p #{ENV['LC_FSSH_PORT']}
           -l #{ENV['LC_FSSH_USER']}
@@ -34,17 +36,22 @@ module FSSH
           localhost
           PATH=#{ENV['LC_FSSH_PATH']} "#{cmd}"
       CMD
+    else
+      Kernel.system cmd
     end
   end
 
   def copy(txt)
-    if RUBY_PLATFORM =~ /darwin/
-      rtun = `which reattach-to-user-namespace`.chomp
-      rtun = '' unless $?.success?
-      system "echo '#{txt}' | #{rtun} pbcopy"
-    else
-      system "echo '#{txt}' | xclip -i"
-    end
+    copy_cmd = if fssh?
+                 ENV['LC_FSSH_COPY']
+               elsif RUBY_PLATFORM =~ /darwin/
+                 rtun = `which reattach-to-user-namespace`.chomp
+                 rtun = '' unless $?.success?
+                 system "#{rtun} pbcopy"
+               else
+                 system 'xclip -i'
+               end
+    system "echo '#{txt}' | #{copy_cmd}"
   end
 
   module_function :system, :copy
