@@ -48,6 +48,7 @@ command! -range=0 -bar -nargs=* -complete=file
       \ OpenGithubLinkCurrentBranch
       \ call open_github_link#open(<f-args>, <count>, 1)
 command! OpenGithubLinkTop              call open_github_link#open_top()
+command! OpenGithubLinkTopCurrentBranch call open_github_link#open_top(1)
 
 if g:open_github_link_map
   nmap go <Plug>(open-github-link)
@@ -55,6 +56,7 @@ if g:open_github_link_map
   nmap gb <Plug>(open-github-link-current-branch)
   vmap gb <Plug>(open-github-link-current-branch)
   nmap g<C-t> <Plug>(open-github-link-top-page)
+  nmap g<C-o> <Plug>(open-github-link-top-page)
 endif
 
 " Restore 'cpoptions' {{{

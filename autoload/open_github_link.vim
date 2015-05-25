@@ -9,8 +9,10 @@ function! open_github_link#open(path, ...)
   endif
 endfunction
 
-function! open_github_link#open_top()
-  return open_github_link#invoke_command('', '', 0, 0)
+function! open_github_link#open_top(...)
+  let is_current = get(a:, 1, 0)
+  let branch = is_current ? s:current_branch() : ''
+  return open_github_link#invoke_command('', branch, 0, 0)
 endfunction
 
 function! open_github_link#invoke_command(path, branch, from, to)
