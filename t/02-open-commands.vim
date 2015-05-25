@@ -9,18 +9,30 @@ describe '`open` commands'
 
   describe 'open_github_link#open()'
 
-    context 'when valid args'
+    context 'when range is given'
       it 'invokes a valid command'
-        Expect Call('open_github_link#open', ['/path/to/file'], 30, 50) ==# "-f 30 -t 50 /path/to/file\n"
+        Expect Call('open_github_link#open', ['/path/to/file'], 50, 30, 50) ==# "-f 30 -t 50 /path/to/file\n"
+      end
+    end
+
+    context 'when range is not given'
+      it 'invokes a valid command'
+        Expect Call('open_github_link#open', ['/path/to/file'], 0, 30, 50) ==# "/path/to/file\n"
       end
     end
   end
 
   describe 'open_github_link#open_current_branch()'
 
-    context 'when valid args'
+    context 'when range is given'
       it 'invokes a valid command'
-        Expect Call('open_github_link#open_current_branch', ['/path/to/file'], 30, 50) ==# "-b some_branch -f 30 -t 50 /path/to/file\n"
+        Expect Call('open_github_link#open_current_branch', ['/path/to/file'], 50, 30, 50) ==# "-b some_branch -f 30 -t 50 /path/to/file\n"
+      end
+    end
+
+    context 'when range is not given'
+      it 'invokes a valid command'
+        Expect Call('open_github_link#open_current_branch', ['/path/to/file'], 0, 30, 50) ==# "-b some_branch /path/to/file\n"
       end
     end
   end
