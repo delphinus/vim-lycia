@@ -50,9 +50,15 @@ describe '`open` commands'
 
   describe 'open_github_link#open_top()'
 
-    context 'when valid args'
+    context 'when is_current flag is off'
       it 'invokes a valid command'
         Expect Call('open_github_link#open_top') ==# "-r\n"
+      end
+    end
+
+    context 'when is_current flag is on'
+      it 'invokes a valid command'
+        Expect Call('open_github_link#open_top', 1) ==# "-b some_branch -r\n"
       end
     end
   end
