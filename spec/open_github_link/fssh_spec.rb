@@ -4,12 +4,6 @@ RSpec.describe FSSH, 'module functions' do
 
   before do
     allow(FSSH).to receive(:fssh?).and_return fssh_enabled?
-    allow(Kernel).to receive :system
-
-    ENV['LC_FSSH_PORT']      = port
-    ENV['LC_FSSH_USER']      = user
-    ENV['LC_FSSH_COPY_ARGS'] = copy_args
-    ENV['LC_FSSH_PATH']      = path
   end
 
   let(:port)      { '12345' }
@@ -29,6 +23,11 @@ RSpec.describe FSSH, 'module functions' do
   describe 'system' do
 
     before do
+      ENV['LC_FSSH_PORT']      = port
+      ENV['LC_FSSH_USER']      = user
+      ENV['LC_FSSH_COPY_ARGS'] = copy_args
+      ENV['LC_FSSH_PATH']      = path
+      allow(Kernel).to receive :system
       FSSH::system cmd
     end
 
