@@ -4,7 +4,7 @@ RSpec.describe FSSH, 'module functions' do
 
   before do
     allow(FSSH).to receive(:fssh?).and_return fssh_enabled?
-    allow(Kernel).to receive(:system)
+    allow(Kernel).to receive :system
 
     ENV['LC_FSSH_PORT']      = port
     ENV['LC_FSSH_USER']      = user
