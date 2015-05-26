@@ -28,11 +28,11 @@ RSpec.describe FSSH, 'module functions' do
 
   describe 'system' do
 
-    context 'when on fssh', fssh?: :on do
+    before do
+      FSSH::system cmd
+    end
 
-      before do
-        FSSH::system cmd
-      end
+    context 'when on fssh', fssh?: :on do
 
       let(:valid_command) {
         <<-CMD.undent.split("\n").join
@@ -42,6 +42,12 @@ RSpec.describe FSSH, 'module functions' do
 
       it 'execute a valid command' do
         expect(Kernel).to have_received(:system).with valid_command
+      end
+    end
+
+    context 'when not on fssh', fssh?: :off do
+      it 'execute a valid command' do
+        expect(Kernel).to have_received(:system).with cmd
       end
     end
   end
