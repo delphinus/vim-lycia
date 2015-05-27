@@ -54,11 +54,22 @@ RSpec.describe FSSH, 'module functions' do
   describe 'copy' do
 
     before do
+      ENV['LC_FSSH_COPY'] = copy
       allow(FSSH).to receive :system
+      FSSH::copy txt
     end
+
+    let(:txt)           { 'some_txt' }
+    let(:copy)          { 'some_copy' }
+    let(:valid_command) { "echo '#{txt}' | #{copy_cmd}" }
 
     context 'when on fssh', fssh?: :on do
 
+      let(:copy_cmd) { copy }
+
+      it 'execute a valid command' do
+        expect(FSSH).to have_received(:system).with valid_command
+      end
     end
   end
 end
