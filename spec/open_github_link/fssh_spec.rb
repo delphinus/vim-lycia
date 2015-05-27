@@ -50,4 +50,15 @@ RSpec.describe FSSH, 'module functions' do
       end
     end
   end
+
+  describe 'copy' do
+
+    before do
+      allow(FSSH).to receive :system
+    end
+
+    context 'when on fssh', fssh?: :on do
+
+    end
+  end
 end
