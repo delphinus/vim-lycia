@@ -60,13 +60,12 @@ end
 class GithubUrl
 
   def initialize
-    git_remote = `git remote -v`
-    begin
-      git_remote = git_remote.split("\n")[0].split("\t")[1].split(' ')[0]
-    rescue
-      raise NonRepositoryError
-    end
-    @url = case git_remote.split("\n")[0].split("\t")[1].split(' ')[0]
+    git_remote = begin
+                   `git remote -v`.split("\n")[0].split("\t")[1].split(' ')[0]
+                 rescue
+                   raise NonRepositoryError
+                 end
+    @url = case git_remote
            when %r[\Agit@([\w.-]+):(.*?)(?:\.git)?\z]
              "https://#$1/#$2"
            when %r[\Assh://git@(.*?)(?:\.git)?\z]
