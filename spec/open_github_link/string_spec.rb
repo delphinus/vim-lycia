@@ -1,4 +1,4 @@
-load 'bin/open-github-link'
+load 'bin/open-github-link' unless 'constant' == defined? OpenGithubLink
 
 RSpec.describe String, 'helper methods' do
 

@@ -1,4 +1,4 @@
-load 'bin/open-github-link'
+load 'bin/open-github-link' unless 'constant' == defined? OpenGithubLink
 require_relative './helpers/kernel_helper.rb'
 
 RSpec.describe FSSH, 'module functions' do
