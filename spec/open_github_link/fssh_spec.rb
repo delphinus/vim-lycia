@@ -32,23 +32,22 @@ RSpec.describe FSSH, 'module functions' do
       FSSH::system cmd
     end
 
-    context 'when on fssh', fssh?: :on do
+    shared_examples_for system: :receive_a_valid_command do
+      it 'system receive a valid command' do
+        expect(Kernel).to have_received(:system).with valid_command
+      end
+    end
 
+    context 'when on fssh', fssh?: :on, system: :receive_a_valid_command do
       let(:valid_command) {
         <<-CMD.undent.split("\n").join
           ssh -p #{port}  -l #{user}  #{copy_args}  localhost  PATH=#{path} "#{cmd}"
         CMD
       }
-
-      it 'execute a valid command' do
-        expect(Kernel).to have_received(:system).with valid_command
-      end
     end
 
-    context 'when not on fssh', fssh?: :off do
-      it 'execute a valid command' do
-        expect(Kernel).to have_received(:system).with cmd
-      end
+    context 'when not on fssh', fssh?: :off, system: :receive_a_valid_command do
+      let(:valid_command) { cmd }
     end
   end
 
@@ -60,6 +59,9 @@ RSpec.describe FSSH, 'module functions' do
       allow(described_class).to receive_message_chain(:`, :chomp).and_return rtun_path
       allow_message_expectations_on_nil
       allow(nil).to receive(:success?).and_return :exit_status
+      with_warnings(nil) do
+        FSSH::RUBY_PLATFORM = platform
+      end
       FSSH::copy txt
     end
 
@@ -76,15 +78,10 @@ RSpec.describe FSSH, 'module functions' do
     context 'when on fssh', fssh?: :on, execute: :a_valid_command do
       let(:copy_cmd)  { copy }
       let(:rtun_path) { '' }
+      let(:platform)  { 'darwin' }
     end
 
     context 'when not on fssh', fssh?: :off do
-
-      before do
-        with_warnings(nil) do
-          FSSH::RUBY_PLATFORM = platform
-        end
-      end
 
       context 'when on darwin' do
 
@@ -100,6 +97,12 @@ RSpec.describe FSSH, 'module functions' do
           let(:rtun_path)   { '' }
           let(:exit_status) { false }
         end
+      end
+
+      context 'when not on darwin', execute: :a_valid_command do
+        let(:platform)  { 'some neat platform' }
+        let(:copy_cmd)  { 'xclip -i' }
+        let(:rtun_path) { '' }
       end
     end
   end
