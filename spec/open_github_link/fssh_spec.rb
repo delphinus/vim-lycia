@@ -67,14 +67,15 @@ RSpec.describe FSSH, 'module functions' do
     let(:copy)          { 'some_copy' }
     let(:valid_command) { "echo '#{txt}' | #{copy_cmd}" }
 
-    shared_context :executing_a_valid_command do
+    shared_examples_for execute: :a_valid_command do
       it 'execute a valid command' do
         expect(described_class).to have_received(:system).with valid_command
       end
     end
 
-    context 'when on fssh', fssh?: :on do
-      let(:copy_cmd) { copy }
+    context 'when on fssh', fssh?: :on, execute: :a_valid_command do
+      let(:copy_cmd)  { copy }
+      let(:rtun_path) { '' }
     end
 
     context 'when not on fssh', fssh?: :off do
@@ -90,11 +91,14 @@ RSpec.describe FSSH, 'module functions' do
         let(:platform) { 'darwin' }
         let(:copy_cmd) { "#{rtun_path} pbcopy" }
 
-        context 'when reattach-to-user-namespace is installed' do
+        context 'when reattach-to-user-namespace is installed', execute: :a_valid_command do
           let(:rtun_path)   { '/usr/bin/reattach-to-user-namespace' }
           let(:exit_status) { true }
+        end
 
-          it_behaves_like :executing_a_valid_command
+        context 'when reattach-to-user-namespace is not installed', execute: :a_valid_command do
+          let(:rtun_path)   { '' }
+          let(:exit_status) { false }
         end
       end
     end
