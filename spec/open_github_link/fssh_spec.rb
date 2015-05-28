@@ -71,5 +71,17 @@ RSpec.describe FSSH, 'module functions' do
         expect(FSSH).to have_received(:system).with valid_command
       end
     end
+
+    context 'when not on fssh', fssh?: :off do
+
+      context 'when on darwin' do
+
+        before do
+          with_warnings(nil) do
+            FSSH::RUBY_PLATFORM = 'darwin'
+          end
+        end
+      end
+    end
   end
 end
