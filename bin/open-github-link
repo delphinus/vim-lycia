@@ -91,6 +91,7 @@ class GithubUrl
 
   def +(other)
     @url += '/' unless @url =~ %r[/\z] || other.to_s =~ %r[\A/]
+    @url.sub!(%r[/$], '') if @url =~ %r[/\z] && other.to_s =~ %r[\A/]
     @url += other.to_s
     self
   end
