@@ -56,7 +56,10 @@ RSpec.describe FSSH, 'module functions' do
 
     before do
       ENV['LC_FSSH_COPY'] = copy
-      allow(FSSH).to receive :system
+      allow(described_class).to receive :system
+      allow(described_class).to receive_message_chain(:`, :chomp).and_return rtun_path
+      allow_message_expectations_on_nil
+      allow(nil).to receive(:success?).and_return :exit_status
       FSSH::copy txt
     end
 
@@ -64,23 +67,34 @@ RSpec.describe FSSH, 'module functions' do
     let(:copy)          { 'some_copy' }
     let(:valid_command) { "echo '#{txt}' | #{copy_cmd}" }
 
-    context 'when on fssh', fssh?: :on do
-
-      let(:copy_cmd) { copy }
-
+    shared_context :executing_a_valid_command do
       it 'execute a valid command' do
-        expect(FSSH).to have_received(:system).with valid_command
+        expect(described_class).to have_received(:system).with valid_command
       end
+    end
+
+    context 'when on fssh', fssh?: :on do
+      let(:copy_cmd) { copy }
     end
 
     context 'when not on fssh', fssh?: :off do
 
+      before do
+        with_warnings(nil) do
+          FSSH::RUBY_PLATFORM = platform
+        end
+      end
+
       context 'when on darwin' do
 
-        before do
-          with_warnings(nil) do
-            FSSH::RUBY_PLATFORM = 'darwin'
-          end
+        let(:platform) { 'darwin' }
+        let(:copy_cmd) { "#{rtun_path} pbcopy" }
+
+        context 'when reattach-to-user-namespace is installed' do
+          let(:rtun_path)   { '/usr/bin/reattach-to-user-namespace' }
+          let(:exit_status) { true }
+
+          it_behaves_like :executing_a_valid_command
         end
       end
     end
