@@ -1,9 +1,10 @@
 load 'bin/open-github-link'
+require_relative './helpers/kernel_helper.rb'
 
 RSpec.describe FSSH, 'module functions' do
 
   before do
-    allow(FSSH).to receive(:fssh?).and_return fssh_enabled?
+    allow(described_class).to receive(:fssh?).and_return fssh_enabled?
   end
 
   let(:port)      { '12345' }
