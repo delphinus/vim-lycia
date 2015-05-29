@@ -99,7 +99,7 @@ class GithubUrl
   def line_hash(from, to)
     raise ToMustBeWithFromError if from == 0 && to > 0
     return self if from == 0 && to == 0
-    @url += "#L#{from}" + if to == 0
+    @url += "#L#{from}" + if to == 0 || to == from
                             ''
                           else
                             "-#{to}"
