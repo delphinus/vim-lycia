@@ -110,7 +110,7 @@ end
 
 class OpenTarget
 
-  def initialize(str)
+  def initialize(str = nil)
     return if str.nil?
 
     @path = Pathname(str)
