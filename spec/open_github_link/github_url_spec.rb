@@ -120,5 +120,65 @@ RSpec.describe GithubUrl do
         end
       end
     end
+
+    describe '#line_hash' do
+
+      subject { described_class.new }
+
+      let(:url)  { 'some_url' }
+
+      context 'when from == 0' do
+
+        let(:from) { 0 }
+
+        context 'when to > 0' do
+
+          let(:to)   { 3 }
+
+          it 'occurs ToMustBeWithFromError' do
+            expect { described_class.new.line_hash from, to }.to raise_error ToMustBeWithFromError
+          end
+        end
+
+        context 'when to == 0' do
+
+          let(:to)   { 0 }
+
+          it 'returns itself' do
+            expect(subject.line_hash from, to).to eq subject
+          end
+        end
+      end
+
+      context 'when from > 0' do
+
+        before do
+          subject.line_hash from, to
+        end
+
+        let(:from) { 3 }
+
+        shared_examples_for it: :has_a_valid_url_with_line_hash do
+          it 'has a valid url with line hash' do
+            expect(subject.instance_variable_get :@url).to eq url_with_line_hash
+          end
+        end
+
+        context 'when to == from', it: :has_a_valid_url_with_line_hash do
+          let(:to) { 3 }
+          let(:url_with_line_hash) { "#{url}#L#{from}" }
+        end
+
+        context 'when to > 0', it: :has_a_valid_url_with_line_hash do
+          let(:to) { 4 }
+          let(:url_with_line_hash) { "#{url}#L#{from}-#{to}" }
+        end
+
+        context 'when to == 0', it: :has_a_valid_url_with_line_hash do
+          let(:to) { 0 }
+          let(:url_with_line_hash) { "#{url}#L#{from}" }
+        end
+      end
+    end
   end
 end
