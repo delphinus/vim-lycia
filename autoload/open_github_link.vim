@@ -1,11 +1,17 @@
 function! open_github_link#open(path, ...)
   let rangegiven = get(a:, 1, 0)
-  let is_current = get(a:, 2, 0)
-  let branch = is_current ? s:current_branch() : ''
-  if rangegiven
-    return open_github_link#invoke_command(s:path_from_arg(a:path), branch, line("'<"), line("'>"))
+  let tag_flag = get(a:, 2, 0)
+  if tag_flag == 1
+    let tag = s:current_branch()
+  elseif tag_flag == 2
+    let tag = s:current_commit()
   else
-    return open_github_link#invoke_command(s:path_from_arg(a:path), branch, 0, 0)
+    let tag = ''
+  endif
+  if rangegiven
+    return open_github_link#invoke_command(s:path_from_arg(a:path), tag, line("'<"), line("'>"))
+  else
+    return open_github_link#invoke_command(s:path_from_arg(a:path), tag, 0, 0)
   endif
 endfunction
 
@@ -35,6 +41,11 @@ endfunction
 
 function! s:current_branch()
   let result = substitute(system(g:open_github_link_git . ' rev-parse --abbrev-ref @'), '\n$', '', '')
+  return result
+endfunction
+
+function! s:current_commit()
+  let result = substitute(system(g:open_github_link_git . ' rev-parse HEAD'), '\n$', '', '')
   return result
 endfunction
 
