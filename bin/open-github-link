@@ -61,7 +61,7 @@ class GithubUrl
 
   def initialize
     git_remote = begin
-                   `git remote -v`.split("\n")[0].split("\t")[1].split(' ')[0]
+                   `git remote -v`.split("\n").find{|r| r =~ /^origin/}.split("\t")[1].split(' ')[0]
                  rescue
                    raise NonRepositoryError
                  end
