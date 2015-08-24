@@ -29,3 +29,6 @@ PLATFORMS
 DEPENDENCIES
   rspec
   vim-flavor
+
+BUNDLED WITH
+   1.10.3

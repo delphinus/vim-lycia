@@ -6,7 +6,7 @@ RSpec.describe GithubUrl do
 
   shared_examples_for git_command: :valid do
     before do
-      allow_any_instance_of(described_class).to receive_message_chain(*%i,` split [] split [] split [],).and_return git_remote
+      allow_any_instance_of(described_class).to receive_message_chain(*%i,` split find split [] split [],).and_return git_remote
     end
   end
 
