@@ -21,13 +21,13 @@ describe '`open` commands'
 
       context 'when is_current flag is off'
         it 'invokes a valid command'
-          Expect Call('lycia#open', '/path/to/file') ==# "/path/to/file\n"
+          Expect Call('lycia#open', '/path/to/file') ==# "open /path/to/file\n"
         end
       end
 
       context 'when is_current is on'
         it 'invokes a valid command'
-          Expect Call('lycia#open', '/path/to/file', 0, 1) ==# "-b some_branch /path/to/file\n"
+          Expect Call('lycia#open', '/path/to/file', 0, 1) ==# "open -r some_branch /path/to/file\n"
         end
       end
     end
@@ -36,13 +36,13 @@ describe '`open` commands'
 
       context 'when is_current flag is off'
         it 'invokes a valid command'
-          Expect Call('lycia#open', '/path/to/file', 1) ==# "-f 3 -t 5 /path/to/file\n"
+          Expect Call('lycia#open', '/path/to/file', 1) ==# "open -f 3 -t 5 /path/to/file\n"
         end
       end
 
       context 'when is_current flag is on'
         it 'invokes a valid command'
-          Expect Call('lycia#open', '/path/to/file', 1, 1) ==# "-b some_branch -f 3 -t 5 /path/to/file\n"
+          Expect Call('lycia#open', '/path/to/file', 1, 1) ==# "open -r some_branch -f 3 -t 5 /path/to/file\n"
         end
       end
     end
@@ -52,13 +52,13 @@ describe '`open` commands'
 
     context 'when is_current flag is off'
       it 'invokes a valid command'
-        Expect Call('lycia#open_top') ==# "-r\n"
+        Expect Call('lycia#open_top') ==# "open\n"
       end
     end
 
     context 'when is_current flag is on'
       it 'invokes a valid command'
-        Expect Call('lycia#open_top', 1) ==# "-b some_branch -r\n"
+        Expect Call('lycia#open_top', 1) ==# "open -r some_branch -r\n"
       end
     end
   end
