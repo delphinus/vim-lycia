@@ -22,7 +22,7 @@ describe 'private functions'
 
     context 'when called'
       it 'invokes true git command'
-        let g:open_github_link_git = 'echo'
+        let g:lycia_git = 'echo'
         Expect Call('s:current_branch') ==# 'rev-parse --abbrev-ref @'
       end
     end

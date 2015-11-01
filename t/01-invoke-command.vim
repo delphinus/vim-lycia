@@ -1,10 +1,10 @@
 source t/helpers/setup.vim
 
-describe 'open_github_link#invoke_command()'
+describe 'lycia#invoke_command()'
 
   before
-    let g:open_github_link_command = 'echo'
-    let g:_test_func_name = 'open_github_link#invoke_command'
+    let g:lycia_command = 'echo'
+    let g:_test_func_name = 'lycia#invoke_command'
   end
 
   context 'when no path, branch, from, to are given'
