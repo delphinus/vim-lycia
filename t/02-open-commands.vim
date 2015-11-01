@@ -58,7 +58,7 @@ describe '`open` commands'
 
     context 'when is_current flag is on'
       it 'invokes a valid command'
-        Expect Call('lycia#open_top', 1) ==# "open -r some_branch -r\n"
+        Expect Call('lycia#open_top', 1) ==# "open -r some_branch\n"
       end
     end
   end
