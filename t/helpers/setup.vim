@@ -1,5 +1,5 @@
-call vspec#hint({'sid': 'open_github_link#_sid()'})
-runtime! plugin/open_github_link.vim
+call vspec#hint({'sid': 'lycia#_sid()'})
+runtime! plugin/lycia.vim
 
 function! Select(from, to)
   call cursor(a:from, 1)
