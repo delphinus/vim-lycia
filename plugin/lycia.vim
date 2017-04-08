@@ -2,12 +2,9 @@
 scriptencoding utf-8
 
 " Load once {{{
-echomsg 'p1'
 if get(g:, 'loaded_lycia', 0) || &cp
-echomsg 'p2'
   finish
 endif
-echomsg 'p3'
 let g:loaded_lycia = 1
 " }}}
 " Saving 'cpoptions' {{{
